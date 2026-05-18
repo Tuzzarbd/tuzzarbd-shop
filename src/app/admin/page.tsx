@@ -6,6 +6,7 @@ export default function Admin() {
   const [orders, setOrders] = useState([])
   const [pass, setPass] = useState('')
   const [auth, setAuth] = useState(false)
+  const [error, setError] = useState('')
 
   const login = () => {
     if (pass === 'Tuzzarbd@Admin2024') setAuth(true)
@@ -13,7 +14,15 @@ export default function Admin() {
   }
 
   useEffect(() => {
-    if (auth) fetch('/api/orders').then(r => r.json()).then(setOrders)
+    if (auth) {
+      fetch('/api/orders')
+        .then(r => {
+          if (!r.ok) throw new Error('API error')
+          return r.json()
+        })
+        .then(setOrders)
+        .catch(e => setError('Orders load হয়নি: ' + e.message))
+    }
   }, [auth])
 
   if (!auth) return (
@@ -25,7 +34,7 @@ export default function Admin() {
           className="w-full border p-3 rounded mb-4"
           placeholder="পাসওয়ার্ড দিন"
           value={pass}
-          onChange={e => setPass(e.target.value)}
+          onChange={(e) => setPass(e.target.value)}
         />
         <button onClick={login} className="w-full bg-green-600 text-white py-3 rounded-lg font-bold">
           লগইন
@@ -40,9 +49,10 @@ export default function Admin() {
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Admin Dashboard</h1>
           <Link href="/admin/products" className="bg-green-600 text-white px-4 py-2 rounded">
-            + পণ্য যোগ করুন
+            পণ্য যোগ করুন
           </Link>
         </div>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
         <div className="bg-white rounded-lg shadow p-4">
           <h2 className="text-xl font-bold mb-4">সকল অর্ডার ({orders.length})</h2>
           {orders.length === 0 && <p className="text-gray-500">কোনো অর্ডার নেই</p>}
@@ -50,7 +60,7 @@ export default function Admin() {
             <div key={o.id} className="border-b py-3">
               <p className="font-bold">{o.name} — {o.phone}</p>
               <p>{o.district} | ৳{o.total} | {o.payment}</p>
-              <p className="text-sm text-gray-500">স্ট্যাটাস: {o.status} | {new Date(o.createdAt).toLocaleDateString('bn-BD')}</p>
+              <p className="text-sm text-gray-500">স্ট্যাটাস: {o.status}</p>
             </div>
           ))}
         </div>
