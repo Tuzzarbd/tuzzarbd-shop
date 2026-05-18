@@ -1,6 +1,9 @@
-export const metadata = {
-  title: "tuzzarbd — ফ্যাশন, গ্যাজেট ও বিউটি",
-  description: "বাংলাদেশের প্রিমিয়াম অনলাইন শপ",
+import type { Metadata } from 'next'
+import './globals.css'
+
+export const metadata: Metadata = {
+  title: 'Tuzzarbd - বাংলাদেশের অনলাইন শপ',
+  description: 'সেরা পণ্য, সেরা দামে',
 }
 
 export default function RootLayout({
