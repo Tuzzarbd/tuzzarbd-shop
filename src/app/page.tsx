@@ -1,45 +1,33 @@
+import Link from 'next/link'
+
 export default function Home() {
   return (
-    <main style={{
-      minHeight: "100vh",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      background: "#1a1a2e",
-      color: "white",
-      fontFamily: "sans-serif",
-      textAlign: "center",
-      padding: "20px"
-    }}>
-      <div style={{
-        background: "#f97316",
-        width: "80px",
-        height: "80px",
-        borderRadius: "20px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: "40px",
-        marginBottom: "24px"
-      }}>🛍️</div>
-      <h1 style={{fontSize: "3rem", fontWeight: "bold", marginBottom: "16px"}}>
-        tuzzarbd
-      </h1>
-      <p style={{fontSize: "1.2rem", color: "#f97316", marginBottom: "8px"}}>
-        বাংলাদেশের প্রিমিয়াম অনলাইন শপ
-      </p>
-      <p style={{color: "#888", marginBottom: "32px"}}>
-        ফ্যাশন • স্মার্ট গ্যাজেট • বিউটি কেয়ার
-      </p>
-      <p style={{
-        background: "#f97316",
-        padding: "12px 24px",
-        borderRadius: "12px",
-        fontWeight: "bold"
-      }}>
-        শীঘ্রই আসছে! 🚀
-      </p>
+    <main className="min-h-screen">
+      <nav className="bg-green-600 text-white p-4 flex justify-between items-center">
+        <h1 className="text-2xl font-bold">Tuzzarbd</h1>
+        <Link href="/track" className="bg-white text-green-600 px-4 py-2 rounded">অর্ডার ট্র্যাক</Link>
+      </nav>
+
+      <div className="bg-green-500 text-white text-center py-20 px-4">
+        <h2 className="text-4xl font-bold mb-4">স্বাগতম Tuzzarbd তে!</h2>
+        <p className="text-xl mb-8">সেরা পণ্য, সেরা দামে — দ্রুত ডেলিভারি</p>
+        <Link href="/checkout" className="bg-white text-green-600 px-8 py-3 rounded-full text-lg font-bold">এখনই কিনুন</Link>
+      </div>
+
+      <div className="max-w-6xl mx-auto p-8">
+        <h3 className="text-2xl font-bold mb-6 text-center">ক্যাটাগরি</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {['ইলেকট্রনিক্স','পোশাক','গৃহস্থালি','সৌন্দর্য'].map((cat) => (
+            <div key={cat} className="bg-white rounded-lg p-6 text-center shadow hover:shadow-lg cursor-pointer">
+              <p className="font-bold text-lg">{cat}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <footer className="bg-green-600 text-white text-center p-6 mt-8">
+        <p>WhatsApp: 01834828845 | ঢাকা ৳৮০, বাইরে ৳১৫০</p>
+      </footer>
     </main>
   )
 }
